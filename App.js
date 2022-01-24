@@ -52,9 +52,28 @@ class UI {
 }
 
 class Storage {
-  static getCourses() {}
-  static displayCourses() {}
-  static addCourse(course) {}
+  static getCourses() {
+    let courses;
+
+    if (localStorage.getItem("courses") === null) {
+      courses = [];
+    } else {
+      courses = JSON.parse(localStorage.getItem("courses"));
+    }
+    return courses;
+  }
+  static displayCourses() {
+    const courses = Storage.getCourses();
+    courses.forEach((courses) => {
+      const ui = new UI();
+      ui.addCourseToList(course);
+    });
+  }
+  static addCourse() {
+    const courses = Storage.getCourses();
+    courses.push(course);
+    localStorage.setItem("courses", JSON.stringify(courses));
+  }
 
   static deleteCourse() {}
 }
@@ -97,5 +116,6 @@ document.getElementById("course-list").addEventListener("click", function (e) {
   ui.deleteCourse(e.target);
 
   //delefe from LS
+  Storage.deleteCourse();
   ui.showAlert("the course has been deleted", "danger");
 });
