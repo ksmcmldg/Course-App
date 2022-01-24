@@ -51,6 +51,16 @@ class UI {
   }
 }
 
+class Storage {
+  static getCourses() {}
+  static displayCourses() {}
+  static addCourse(course) {}
+
+  static deleteCourse() {}
+}
+
+document.addEventListener("DOMContentLoaded", Storage.displayCourses);
+
 document.getElementById("new-course").addEventListener("submit", function (e) {
   const title = document.getElementById("title").value;
   const instructor = document.getElementById("instructor").value;
@@ -62,13 +72,14 @@ document.getElementById("new-course").addEventListener("submit", function (e) {
   // create UI
   const ui = new UI();
 
-  console.log(ui);
-
   if (title === "" || instructor === "" || image === "") {
     ui.showAlert("Please complete the form", "warning");
   } else {
     // add course to list
     ui.addCourseToList(course);
+
+    //save To LS
+    Storage.addCourse(course);
 
     // clear controls
     ui.clearControls();
@@ -81,6 +92,10 @@ document.getElementById("new-course").addEventListener("submit", function (e) {
 
 document.getElementById("course-list").addEventListener("click", function (e) {
   const ui = new UI();
+
+  //delete course
   ui.deleteCourse(e.target);
+
+  //delefe from LS
   ui.showAlert("the course has been deleted", "danger");
 });
