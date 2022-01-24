@@ -64,12 +64,13 @@ class Storage {
   }
   static displayCourses() {
     const courses = Storage.getCourses();
-    courses.forEach((courses) => {
+
+    courses.forEach((course) => {
       const ui = new UI();
       ui.addCourseToList(course);
     });
   }
-  static addCourse() {
+  static addCourse(course) {
     const courses = Storage.getCourses();
     courses.push(course);
     localStorage.setItem("courses", JSON.stringify(courses));
